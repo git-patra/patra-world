@@ -1,0 +1,5 @@
+{
+  "name":"patra-world", "version":"0.1.0", "private":true, "type":"module",
+  "description":"An explorable, local-only portfolio concept for Anugrah Patra",
+  "scripts":{"dev":"node scripts/serve.mjs", "build":"node scripts/build.mjs", "check":"node --check src/app.js && node --check src/world.js", "test":"node --test tests/*.test.js"}
+}
