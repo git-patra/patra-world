@@ -119,3 +119,5 @@ Content was read from the existing portfolio’s `src/App.jsx`, `scripts/generat
 Authoritative revised CV source: `../patra-portfolio/public/assets/Anugrah-Patra-Resume.pdf`. It replaces the original gaming-focused CV for this site. The portfolio URL recorded inside that CV is `http://172.93.188.10/`; do not restore the previous address beginning with `8.`.
 
 Existing reusable assets include partner logos, Oren POS screenshots, and three curated Jajaneun thumbnails. Preserve source notes and font licenses when copying. No private project metrics, client screenshots, results, awards, or additional employers should be invented.
+
+Oren POS follow-up: the displayed case image is the user-supplied `IMG_6488.PNG`, copied unchanged to `public/assets/oren-pos-showcase.png`.

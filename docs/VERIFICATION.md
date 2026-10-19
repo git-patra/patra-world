@@ -34,3 +34,10 @@ The original `../patra-portfolio` remains unchanged. Its pre-existing working di
 - Viewport emulation is not physical-device or assistive-technology certification.
 - Business-system demos are illustrative; no live integrations or backend are connected.
 - No public deployment, remote repository, or external messaging was performed.
+
+## Motion and navigation follow-up
+
+- Penalty now sequences a visible leg swing and body follow-through, ball departure after contact, and a goalkeeper jump with extended gloves anchored to the selected blocking corner. A browser motion-frame capture confirms the leg and airborne keeper poses.
+- Restart moved above the pitch and is visible on desktop and 390px mobile; replay resets the round to 0/5. Tested game dialog width matches its scroll width on mobile.
+- Sidebar Game engineering moved the character from (8,8) to the arcade entrance (5,4), then opened the case. Sidebar Oren POS moved it to (12,11) and opened the POS case.
+- Oren POS now displays the user-supplied IMG_6488.PNG as a local, uncropped portrait image.

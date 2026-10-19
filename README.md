@@ -17,6 +17,7 @@ Open **http://127.0.0.1:4176/**. Vite + React + Tailwind + shadcn/ui; Canvas2D r
 
 - **WASD / arrows:** move. **Click/tap ground or a building:** walk there.
 - **E / Explore:** open the nearby work story.
+- **Explore my work sidebar:** walks the character to the selected tenant and opens its story on arrival.
 - **Project index:** open any case directly. Mobile includes a D-pad.
 - **About & experience:** read the complete 2018–present chronology and project contributions below the map.
 - **Motion:** disables ambient animation and uses instant world travel. Also honors reduced motion.
@@ -26,7 +27,7 @@ Each case identifies the company/product, role, period, context, concrete contri
 
 ## Football Penalty
 
-Exactly **four fixed zones**, arranged in a 2×2 goal: top left, top right, bottom left, bottom right. Clicking a zone immediately shoots. The keeper chooses a zone; a different zone scores, a matching zone is saved and ends the round. Five consecutive goals wins. No zone settings, wagering, backend, or transactions. Inputs lock during the shot. Restart is always available; the best score survives reopening the game during the page visit.
+Exactly **four fixed zones**, arranged in a 2×2 goal: top left, top right, bottom left, bottom right. Clicking a zone starts an animated wind-up, leg swing, ball flight, and goalkeeper dive. The keeper chooses a zone; a different zone scores, a matching zone is saved and ends the round. Five consecutive goals wins. No zone settings, wagering, backend, or transactions. Inputs lock during the shot. Restart sits above the pitch and is always available, including during a shot; the best score survives reopening the game during the page visit.
 
 The game uses React and the local shadcn Button component. The world and content shell remain independently maintainable. Timers and the React root are cleaned up when dialogs close or change.
 
