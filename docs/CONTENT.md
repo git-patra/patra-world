@@ -18,7 +18,7 @@ I’m Anugrah Patra, a software engineer based in Bandung, Indonesia. I build re
 
 **Small interactions. Thoughtful engineering.**
 
-A playful look at responsive interfaces and real-time systems, with a local Rock Paper Scissors demonstration.
+A playful look at responsive interfaces and real-time systems, with a local Football Penalty (four fixed corner zones) demonstration.
 
 - Go services and client integration.
 - WebSocket synchronization and Redis.
@@ -50,7 +50,7 @@ The services behind PaperCard, Paper Horizon Card, and Paper Pioneer Card—from
 
 Context: Backend Engineer, Paper.id, January 2023–October 2025. Card artwork is illustrative; partner marks indicate integration experience, not endorsement.
 
-## 4. Coffee Workshop
+## 4. Coffee House
 
 **A better flow for every cup.**
 

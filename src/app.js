@@ -1,11 +1,13 @@
 import {createWorld} from './world.js';
-import {stations,links} from './data.js';
+import {stations} from './data.js';
+import {mountPenalty} from './components/PenaltyGame.jsx';
 const $=(selector)=>document.querySelector(selector);
 const dialog=$('#project-dialog'),content=$('#dialog-content');
 const visited=new Set();
-let nearby=null,world,lastTrigger=null;
+let nearby=null,world,lastTrigger=null,cleanupDemo=null;
+function disposeDemo(){cleanupDemo?.();cleanupDemo=null;}
 let motion=!matchMedia('(prefers-reduced-motion: reduce)').matches;
-const placeMarkup=(station,i)=>`<button class="place-row" data-project="${station.id}" style="--place-color:${station.color}"><span class="place-number">0${i+1}</span><span class="place-icon">${station.icon}</span><span class="place-copy"><strong>${station.name}</strong><small>${station.short}</small></span><span class="place-arrow">↗</span></button>`;
+const placeMarkup=(station,i)=>`<button class="place-row" data-project="${station.id}" style="--place-color:${station.color}"><span class="place-number">0${i+1}</span><span class="place-icon">${station.icon}</span><span class="place-copy"><strong>${station.label}</strong><small>${station.short}</small></span><span class="place-arrow">↗</span></button>`;
 $('#places').innerHTML=stations.map(placeMarkup).join('');
 function hideWelcome(){$('#welcome-note').classList.add('dismissed');}
 function updateMotion(){
@@ -33,7 +35,7 @@ world=createWorld($('#world'),{
 });
 updateMotion();
 function renderVisual(id){
- if(id==='arcade')return `<div class="case-demo arcade-demo"><div class="demo-top"><span>LITTLE GHOST ARCADE</span><span>LOCAL PLAY</span></div><div class="rps-display"><div><span class="rps-hand" id="your-hand">✊</span><small>YOU</small></div><span class="vs">VS</span><div><span class="rps-hand" id="ghost-hand">👻</span><small>LITTLE GHOST</small></div></div><p id="rps-result" role="status">Rock, paper, or scissors?</p><div class="rps-choices"><button data-hand="rock">✊ <span>Rock</span></button><button data-hand="paper">✋ <span>Paper</span></button><button data-hand="scissors">✌️ <span>Scissors</span></button></div><div class="rps-score" id="rps-score">YOU 0 <span>·</span> DRAWS 0 <span>·</span> GHOST 0</div></div>`;
+ if(id==='arcade')return `<div id="penalty-root"></div>`;
  if(id==='chat')return `<div class="case-demo chat-demo"><div class="demo-top"><span><i class="online"></i> SIGNAL STATION</span><span>LOCAL PREVIEW</span></div><div class="chat-messages" id="chat-messages" role="log" aria-label="Demo conversation"><p class="chat-bubble">Hey explorer! Found your way here? 👋</p><p class="chat-bubble">I build the services that help conversations move in real time.</p></div><form id="chat-form"><input aria-label="Demo message" placeholder="Say hello…" maxlength="200" autocomplete="off" required /><button aria-label="Send demo message">↑</button></form></div>`;
  if(id==='fintech')return `<div class="case-demo finance-demo"><div class="demo-top"><span>CARD VAULT</span><span>ILLUSTRATIVE</span></div><div class="virtual-card"><span>PAPER<span class="fine"> / VIRTUAL</span></span><span class="chip">▦</span><strong>•••• &nbsp; •••• &nbsp; •••• &nbsp; 2048</strong><div><span>ANUGRAH PATRA</span><span>BUSINESS</span></div></div><div class="integration-logos"><span><img src="assets/bri-logo.webp" alt="BRI" /></span><span><img src="assets/ayoconnect.svg" alt="Ayoconnect" /></span><span><img src="assets/cimb.svg" alt="CIMB" /></span></div></div>`;
  if(id==='coffee')return `<div class="case-demo invoice-demo"><div class="demo-top"><span>COFFEE HOUSE</span><span>SAMPLE INVOICE</span></div><div class="invoice-paper"><div><span class="coffee-mark">☕</span><span class="paid">APPROVED</span></div><h3>Everything in order.</h3><span class="invoice-ref">INV / CONCEPT / 001</span><div class="invoice-line"><span>Operations supplies</span><b>Rp 2.400.000</b></div><div class="invoice-line"><span>Service adjustment</span><b>Rp 150.000</b></div><div class="invoice-line total"><span>Total</span><b>Rp 2.550.000</b></div><div class="approval-flow"><span>Submitted</span><i>→</i><span>Reviewed</span><i>→</i><span>Approved ✓</span></div></div></div>`;
@@ -52,25 +54,16 @@ function openProject(id){
  visited.add(id);hideWelcome();
  $('#visited-count').textContent=`${visited.size} / 7`;
  document.querySelector(`[data-project="${id}"]`)?.classList.add('visited');
- content.innerHTML=`<div class="case-header" style="--case-color:${station.color}"><div class="case-eyebrow"><span>${station.icon}</span>${station.tag}<span class="visit-tag">PLACE 0${stations.indexOf(station)+1}</span></div><h2 id="dialog-title">${station.title.replace('\n','<br>')}</h2><p>${station.description}</p></div><div class="case-layout">${renderVisual(id)}<div class="case-details"><h3>What I worked on</h3><ul>${station.highlights.map(h=>`<li>${h}</li>`).join('')}</ul><p class="sample-note">${station.note}</p>${station.link?`<a class="case-link" href="${station.link}" target="_blank" rel="noopener noreferrer">${station.linkText}<span>↗</span></a>`:''}<button class="walk-button" id="walk-to-place">Walk to ${station.name}<span>→</span></button></div></div><div class="case-footer"><span><span class="orange">✦</span> You’ve explored ${visited.size} of 7 places.</span><button id="back-to-world">Back to the village ↗</button></div>`;
+ disposeDemo();
+ dialog.classList.toggle('game-dialog',id==='arcade');
+ content.innerHTML=`<div class="case-header" style="--case-color:${station.color}"><div class="case-eyebrow"><span>${station.icon}</span>${station.label}<span class="visit-tag">${station.category}</span></div><h2 id="dialog-title">${station.title.replace('\n',id==='arcade'?' ':'<br>')}</h2><div class="case-role"><strong>${station.role}</strong><span>${station.company}</span><time>${station.period}</time></div><p>${station.context}</p></div><div class="case-layout ${id==='arcade'?'game-layout':''}">${renderVisual(id)}${id==='arcade'?'':`<div class="case-details"><h3>The work behind this place</h3><p class="case-takeaway">${station.takeaway}</p><div class="story-tools">${station.stack.map(t=>`<span>${t}</span>`).join('')}</div><p class="sample-note">${station.note}</p>${station.link?`<a class="case-link" href="${station.link}" target="_blank" rel="noopener noreferrer">${station.linkText}<span>↗</span></a>`:''}</div>`}</div><section class="contribution-section" aria-labelledby="contribution-title"><div class="section-kicker" id="contribution-title">MY CONTRIBUTIONS <span>${station.company}</span></div><div class="contribution-grid">${station.contributions.map(([heading,body],i)=>`<article><span>0${i+1}</span><h3>${heading}</h3><p>${body}</p></article>`).join('')}</div></section><div class="project-flow" aria-label="Illustrative work flow">${station.flow.map((step,i)=>`<span><b>0${i+1}</b>${step}</span>`).join('<i>→</i>')}</div>${id==='arcade'?`<p class="sample-note">${station.note}</p>`:''}<div class="case-footer"><button class="walk-button" id="walk-to-place">Walk to ${station.name} →</button><span>${visited.size} of 7 work stories explored</span><button id="back-to-world">Close case ↗</button></div>`;
  notify(`Exploring ${station.name}. ${visited.size} of 7 places visited.`);
  if(!dialog.open)showDialog();
  else {dialog.scrollTop=0;$('#close-dialog').focus();}
  $('#back-to-world').onclick=()=>dialog.close();
- $('#walk-to-place').onclick=()=>{dialog.close();requestAnimationFrame(()=>{world.setPaused(false);world.travelTo(id);notify(`Walking to ${station.name}.`);});};
- if(id==='arcade')setupRps();
+ $('#walk-to-place').onclick=()=>{dialog.close();requestAnimationFrame(()=>{$('#home').scrollIntoView({behavior:'instant'});world.setPaused(false);world.travelTo(id);notify(`Walking to ${station.name}.`);});};
+ if(id==='arcade')cleanupDemo=mountPenalty($('#penalty-root'));
  if(id==='chat')setupChat();
-}
-function setupRps(){
- let wins=0,draws=0,losses=0;
- const names=['rock','paper','scissors'],emoji={rock:'✊',paper:'✋',scissors:'✌️'},beats={rock:'scissors',paper:'rock',scissors:'paper'};
- document.querySelectorAll('[data-hand]').forEach(button=>button.onclick=()=>{
-  const hand=button.dataset.hand,other=names[Math.floor(Math.random()*3)];
-  $('#your-hand').textContent=emoji[hand];$('#ghost-hand').textContent=emoji[other];
-  let message;if(hand===other){draws++;message='A draw. Great minds think alike.';}else if(beats[hand]===other){wins++;message='You win! Nicely played.';}else{losses++;message='Little Ghost wins this round.';}
-  $('#rps-result').textContent=message;
-  $('#rps-score').innerHTML=`YOU ${wins} <span>·</span> DRAWS ${draws} <span>·</span> GHOST ${losses}`;
- });
 }
 function setupChat(){
  $('#chat-form').onsubmit=e=>{e.preventDefault();const input=e.target.querySelector('input'),value=input.value.trim();if(!value)return;
@@ -80,28 +73,25 @@ function setupChat(){
   while(log.children.length>6)log.firstElementChild.remove();log.scrollTop=log.scrollHeight;
  };
 }
-$('#places').addEventListener('click',event=>{const button=event.target.closest('[data-project]');if(button)openProject(button.dataset.project);});
+document.addEventListener('click',event=>{const button=event.target.closest('[data-project]');if(button)openProject(button.dataset.project);});
 $('#list-button').onclick=()=>{
- content.innerHTML=`<div class="case-header"><div class="eyebrow">THE VILLAGE DIRECTORY</div><h2 id="dialog-title">Follow your curiosity.</h2><p>Every place holds a different part of my work. Open one directly, or walk there on the map.</p></div><div class="directory-list">${stations.map(placeMarkup).join('')}</div>`;
- content.querySelectorAll('[data-project]').forEach(button=>button.onclick=()=>openProject(button.dataset.project));showDialog();
-};
-$('#about-button').onclick=()=>{
- content.innerHTML=`<div class="case-header"><div class="eyebrow">THE PERSON BEHIND THE PIXELS</div><h2 id="dialog-title">Hi, I’m Anugrah Patra<span class="orange">.</span></h2><p>Software engineer, builder, and F&B business owner based in Bandung, Indonesia.</p></div><div class="about-body"><div class="about-summary"><strong>7+ years</strong><p>Building real-time products, financial integrations, and the systems behind everyday business. From the first API to the last little interaction.</p><div class="stack-tags"><span>Go</span><span>Java</span><span>Node.js</span><span>TypeScript</span><span>React</span></div></div><div class="timeline"><article><span>2025 — PRESENT</span><h3>PT Citra International Digital</h3><p>Full Stack Engineer</p></article><article><span>2023 — 2025</span><h3>Paper.id</h3><p>Backend Engineer</p></article><article><span>2021 — 2023</span><h3>PT Eigen Tri Mathema</h3><p>Senior Backend Developer</p></article></div></div><div class="case-footer"><a href="${links.cv}" download>Download my CV ↓</a><a class="case-link" href="${links.linkedin}" target="_blank" rel="noopener noreferrer">Let’s talk on LinkedIn ↗</a></div>`;
+ disposeDemo();dialog.classList.remove('game-dialog');
+ content.innerHTML=`<div class="case-header"><div class="eyebrow">THE VILLAGE DIRECTORY</div><h2 id="dialog-title">Explore my work experience.</h2><p>These buildings represent professional contributions, products, and my own business. Open a case to read what I worked on, where, and how.</p></div><div class="directory-list">${stations.map(placeMarkup).join('')}</div>`;
  showDialog();
 };
 $('#close-dialog').onclick=()=>dialog.close();
 dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});
-dialog.addEventListener('close',()=>{world.setPaused(false);lastTrigger?.focus?.();});
+dialog.addEventListener('close',()=>{disposeDemo();syncWorldPause();lastTrigger?.focus?.({preventScroll:true});});
 $('#dismiss-note').onclick=hideWelcome;
 $('#interact-button').onclick=()=>world.interact();
 $('#reset-button').onclick=()=>{world.reset();$('#current-location').textContent='The village plaza';notify('Back at the village plaza.');};
-$('.brand').onclick=e=>{e.preventDefault();world.reset();$('#current-location').textContent='The village plaza';};
+$('.brand').onclick=e=>{e.preventDefault();$('#home').scrollIntoView({behavior:'instant'});world.reset();$('#current-location').textContent='The village plaza';};
 $('#motion-button').onclick=()=>{motion=!motion;updateMotion();};
 const media=matchMedia('(prefers-reduced-motion: reduce)');
 media.addEventListener('change',e=>{motion=!e.matches;updateMotion();});
 const directions={w:[0,-1],a:[-1,0],s:[0,1],d:[1,0],ArrowUp:[0,-1],ArrowLeft:[-1,0],ArrowDown:[0,1],ArrowRight:[1,0]};
 document.addEventListener('keydown',event=>{
- if(dialog.open||event.ctrlKey||event.metaKey||event.altKey||event.target.closest('input,textarea,select'))return;
+ if(!worldVisible||dialog.open||event.ctrlKey||event.metaKey||event.altKey||event.target.closest('input,textarea,select'))return;
  const key=event.key.length===1?event.key.toLowerCase():event.key;
  if(directions[key]){event.preventDefault();world.move(...directions[key]);hideWelcome();}
  else if(key==='e'){event.preventDefault();world.interact();}
@@ -114,4 +104,14 @@ document.querySelectorAll('[data-move]').forEach(button=>{
  button.addEventListener('click',event=>{if(event.detail===0){world.move(...direction);hideWelcome();}});
 });
 window.addEventListener('pointerup',stopHold);window.addEventListener('pointercancel',stopHold);window.addEventListener('blur',stopHold);
-window.addEventListener('pagehide',event=>{stopHold();if(!event.persisted)world.destroy();});
+window.addEventListener('pagehide',event=>{stopHold();if(!event.persisted){disposeDemo();world.destroy();}});
+
+let worldVisible=true;
+function syncWorldPause(){world.setPaused(dialog.open||!worldVisible||document.hidden);}
+const visibilityObserver=new IntersectionObserver(([entry])=>{worldVisible=entry.isIntersecting;syncWorldPause();},{threshold:0.1});
+visibilityObserver.observe($('#world'));
+document.addEventListener('visibilitychange',()=>{stopHold();syncWorldPause();});
+function revealLinkedCase(){const id=location.hash.slice(1);if(id.startsWith('case-')){const target=document.getElementById(id);if(target?.tagName==='DETAILS')target.open=true;}}
+window.addEventListener('hashchange',revealLinkedCase);revealLinkedCase();
+
+document.addEventListener('click',event=>{const anchor=event.target.closest('a[href^="#case-"]');if(anchor){const story=document.getElementById(anchor.getAttribute('href').slice(1));if(story?.tagName==='DETAILS')story.open=true;}});

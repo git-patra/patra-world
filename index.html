@@ -1,40 +1,51 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#15131f" />
-  <meta name="description" content="Explore Anugrah Patra's small world of software, real-time systems, financial integrations, and everyday products." />
+  <meta name="description" content="Anugrah Patra — Software Engineer in Bandung. Explore 7+ years of experience in real-time products, financial integrations, ERP, and full-stack delivery." />
+  <meta property="og:title" content="Anugrah Patra — Software Engineer & Product Builder" />
+  <meta property="og:description" content="Explore the projects and experience behind a small interactive world." />
+  <meta property="og:type" content="website" />
   <title>Patra's After Hours — An explorable portfolio</title>
   <link rel="icon" href="assets/pumpkin.svg" type="image/svg+xml" />
   <link rel="preload" href="assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="src/ui.css" />
   <link rel="stylesheet" href="src/styles.css" />
+  <link rel="stylesheet" href="src/experience.css" />
+  <link rel="stylesheet" href="src/penalty.css" />
 </head>
 <body>
+  <a class="skip-link" href="#experience">Skip the game — read my experience</a>
+  <div class="world-shell" id="home">
   <header class="topbar">
     <a class="brand" href="#" aria-label="Patra — return to the plaza"><img src="assets/pumpkin.svg" alt="" width="34" height="34" /><span>Patra<span class="orange">.</span></span><span class="brand-divider"></span><span class="brand-sub">AFTER HOURS</span></a>
-    <div class="edition"><span></span> AN EXPLORABLE PORTFOLIO <b>CONCEPT 02</b></div>
-    <nav aria-label="Main navigation"><button id="about-button" class="text-button">About me <span>↗</span></button><a class="talk-button" href="https://www.linkedin.com/in/anugrah-patra-7156a61a8/" target="_blank" rel="noopener noreferrer">Let’s talk <span>↗</span></a></nav>
+    <div class="edition"><span></span> SOFTWARE ENGINEER <b>7+ YEARS</b></div>
+    <nav aria-label="Main navigation"><a href="#experience" id="about-button" class="text-button">About & experience <span>↓</span></a><a class="talk-button" href="https://www.linkedin.com/in/anugrah-patra-7156a61a8/" target="_blank" rel="noopener noreferrer">Let’s talk <span>↗</span></a></nav>
   </header>
   <main class="experience">
     <aside class="guide">
-      <div class="intro"><div class="eyebrow"><span class="tiny-star">✦</span> ENGINEER. BUILDER. EXPLORER.</div><h1>A small world.<br>A lot to <em>discover.</em></h1><p>I’m Patra, a software engineer in Bandung. These are the things I’ve helped bring to life.</p></div>
-      <div class="places-heading"><h2>CHOOSE YOUR NEXT STOP</h2><span id="visited-count">0 / 7</span></div>
+      <div class="intro"><div class="eyebrow"><span class="tiny-star">✦</span> MY PORTFOLIO, BUILT AS A WORLD</div><h1>Anugrah Patra<span class="orange">.</span><br><em>Software engineer.</em></h1><p>7+ years building real-time products, financial integrations, and business systems.</p><p class="map-explanation"><strong>Each building is a chapter of my work.</strong> Explore one to see my role, contributions, and a demo.</p></div>
+      <a href="#experience" class="experience-preview"><span>MY EXPERIENCE <b>VIEW ALL ↓</b></span><strong>Citra <i>→</i> Paper.id <i>→</i> Eigen</strong><small>Full stack · Fintech · ERP & architecture</small></a>
+      <div class="places-heading"><h2>EXPLORE MY WORK</h2><span id="visited-count">0 / 7</span></div>
       <nav class="places" aria-label="Project destinations" id="places"></nav>
       <div class="guide-bottom"><div class="experience-stat"><b>7+</b><span>years of building<br>things that work.</span></div><a class="cv-link" href="assets/Anugrah-Patra-Resume.pdf" download>Download CV <span>↓</span></a></div>
     </aside>
     <section class="world-stage" aria-label="Interactive portfolio world">
-      <div class="world-heading"><div><span class="world-dot"></span><span>THE AFTER HOURS VILLAGE</span></div><span class="chapter">01 — EXPLORE AT YOUR OWN PACE</span></div>
+      <div class="world-heading"><div><span class="world-dot"></span><span>MY EXPERIENCE, MAPPED OUT</span></div><span class="chapter">CLICK A BUILDING TO EXPLORE MY WORK</span></div>
       <div class="world-atmosphere" aria-hidden="true"><span class="moon"></span><span class="star s1">✦</span><span class="star s2">·</span><span class="star s3">✧</span><span class="star s4">·</span><span class="star s5">✦</span></div>
       <canvas id="world" tabindex="0" aria-label="Walkable village. Use WASD or arrow keys to move, E to explore a nearby building. Alternatively, choose a project from the destination list." aria-describedby="controls-help"></canvas>
       <div class="world-top-tools"><button id="motion-button" class="tool-button" aria-pressed="true" title="Toggle ambient animation"><span>✦</span> Motion on</button><button id="reset-button" class="tool-button icon-tool" aria-label="Return to the village plaza" title="Return to the plaza">⌖</button></div>
-      <div class="welcome-note" id="welcome-note"><div class="note-avatar">👋</div><div><strong>Hey, welcome to my little world.</strong><p>Pick a place. I’ll meet you there.</p></div><button id="dismiss-note" aria-label="Dismiss welcome message">×</button></div>
+      <div class="welcome-note" id="welcome-note"><div class="note-avatar">👋</div><div><strong>These buildings tell my work story.</strong><p>Click one to discover my role and contributions.</p></div><button id="dismiss-note" aria-label="Dismiss welcome message">×</button></div>
       <div class="location-hud"><span class="location-dot"></span><div><span>YOU ARE HERE</span><strong id="current-location">The village plaza</strong></div><span class="coordinate" id="coordinates">08 : 08</span></div>
       <div class="world-bottom-tools"><button id="list-button" class="all-places-button"><span>☷</span> Project index <span>↗</span></button><div class="movement-pad" role="group" aria-label="Movement controls"><button data-move="0,-1" class="up" aria-label="Move up">↑</button><button data-move="-1,0" class="left" aria-label="Move left">←</button><button data-move="0,1" class="down" aria-label="Move down">↓</button><button data-move="1,0" class="right" aria-label="Move right">→</button></div><button id="interact-button" class="interact-button" disabled><kbd>E</kbd><span>Walk to a place</span><span>↗</span></button></div>
       <div class="travel-status" id="travel-status" role="status" aria-live="polite"></div>
     </section>
   </main>
-  <footer class="bottom-bar"><p><span class="live-dot"></span> A little curiosity goes a long way.</p><div id="controls-help"><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> move</span><i></i><span>Click anywhere to walk</span><i></i><span><kbd>E</kbd> explore</span></div><span class="footer-right">MADE OF CODE & A LITTLE MAGIC <span>✦</span></span></footer>
+  <footer class="bottom-bar"><p><span class="live-dot"></span> <a href="#experience">Read my full experience below ↓</a></p><div id="controls-help"><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> move</span><i></i><span>Click anywhere to walk</span><i></i><span><kbd>E</kbd> explore</span></div><span class="footer-right">MADE OF CODE & A LITTLE MAGIC <span>✦</span></span></footer>
+  </div>
+  <!--PROFILE_CONTENT-->
   <dialog id="project-dialog" aria-labelledby="dialog-title"><div class="dialog-shell"><button id="close-dialog" class="dialog-close" aria-label="Close project">×</button><div id="dialog-content"></div></div></dialog>
   <noscript><div class="noscript">This world needs JavaScript to move. You can still <a href="assets/Anugrah-Patra-Resume.pdf">download my CV</a>, visit <a href="https://orenpos.store/">Oren POS</a>, or <a href="https://www.linkedin.com/in/anugrah-patra-7156a61a8/">connect on LinkedIn</a>.</div></noscript>
   <script type="module" src="src/app.js"></script>

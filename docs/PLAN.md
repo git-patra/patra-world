@@ -96,3 +96,15 @@ React dan komponen shadcn dapat membungkus panel dan menu pada fase berikutnya, 
 Canvas sendiri tidak cukup untuk aksesibilitas atau SEO; daftar dan panel DOM menjadi jalur informasi utama yang setara. Peta yang terlalu padat dapat membingungkan pada mobile, sehingga label, lokasi tujuan, dan panel harus diprioritaskan. Instagram dapat membatasi embed; gambar kurasi dengan tautan sumber tetap berguna sebagai fallback.
 
 Pilihan karakter, tingkat detail pixel-art versus ilustrasi bersih, serta banyaknya dekorasi Halloween dapat diputuskan setelah mencoba demo. Suara bersifat opsional dan sebaiknya dimulai dalam keadaan mati. Pilihan tersebut bukan penghalang untuk menguji konsep eksplorasi sekarang.
+
+## Implementasi lokal — pembaruan 19 Oktober 2026
+
+Arah eksplorasi sudah dipilih pengguna. Implementasi lokal melanjutkan prototype dengan:
+- Identitas engineer, penjelasan bahwa bangunan mewakili pengalaman, dan ringkasan karier di layar pertama.
+- About/experience terbuka sebagai bagian halaman; riwayat lengkap 2018–sekarang, pendidikan, CV, dan LinkedIn.
+- Tujuh studi karya yang menyebut perusahaan/proyek, peran, periode, konteks, kontribusi, teknologi, dan alur ilustratif. Semua tersedia dalam HTML mode baca.
+- React + shadcn/ui untuk football penalty; engine Canvas2D tetap dipertahankan.
+- Koreksi terbaru pengguna: **empat zona tetap dalam susunan 2×2**, kiri atas/kanan atas/kiri bawah/kanan bawah. Klik langsung menembak, lima gol berturut-turut menuntaskan ronde, satu penyelamatan mengakhiri ronde.
+- Build Vite statis, penanganan reduced motion, jeda render saat peta tidak terlihat, pembersihan game ketika dialog ditutup, dan dokumen deployment tanpa menjalankan deploy.
+
+Ketentuan Football Penalty di atas menggantikan Rock Paper Scissors pada rencana awal. Keputusan zona empat menggantikan permintaan lima zona sebelumnya. Validasi perangkat fisik dan deployment publik tetap memerlukan tahap terpisah; repo lama tidak disentuh.

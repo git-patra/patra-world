@@ -335,7 +335,7 @@ export function createWorld(canvas, { stations, onNear = () => {}, onSelect = ()
       const heights = { arcade: 112, chat: 110, fintech: 110, coffee: 95, erp: 105, pos: 110, jajaneun: 78 };
       const x = camera.x + p.x * camera.scale;
       const y = camera.y + (p.y - heights[station.id]) * camera.scale;
-      const shortNames = { arcade: 'Arcade', chat: 'Chat lab', fintech: 'Fintech', coffee: 'Coffee', erp: 'ERP', pos: 'POS', jajaneun: 'Jajaneun' };
+      const shortNames = { arcade: 'Games', chat: 'Messaging', fintech: 'Fintech', coffee: 'Invoicing', erp: 'ERP', pos: 'Oren POS', jajaneun: 'Jajaneun' };
       const text = shortNames[station.id] || station.name;
       ctx.font = `${active ? '600' : '500'} ${compact ? 9 : 10}px "DM Sans", system-ui, sans-serif`;
       const labelWidth = ctx.measureText(text).width + 20;

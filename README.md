@@ -1,55 +1,58 @@
-# Patra’s After Hours — interactive portfolio concept
+# Patra’s After Hours
 
-A separate, playable exploration prototype for Anugrah Patra. Move a little ghost through an original isometric autumn village and discover seven places representing his work. The previous `../patra-portfolio` repository is preserved as the earlier option.
+Anugrah Patra’s static portfolio: an explorable isometric world, a visible professional timeline, seven detailed work stories, and a playable Football Penalty game. Dark autumn/Halloween theme. English content.
 
-This repository contains the **plan and concept demonstration**, not a finished production release. Local only; no remote repository or deployment.
+Local only. The original `../patra-portfolio` repository remains the earlier option and is not modified by this project.
 
-## Try locally
-
-Node.js is required for the development server and packaging. No package installation is needed.
+## Local development
 
 ```sh
+npm ci
 npm run dev
 ```
 
-Open **http://127.0.0.1:4176/**. The old portfolio remains on port 4173.
+Open **http://127.0.0.1:4176/**. Vite + React + Tailwind + shadcn/ui; Canvas2D renders the original world art. The older portfolio uses a separate port, 4173.
 
-- **WASD / arrow keys:** move the character.
-- **Click/tap ground:** walk to a tile.
-- **Click/tap a building or its marker:** walk there and open its project.
-- **E / Explore button:** inspect a nearby building.
-- **Project index:** open any project directly; no gameplay requirement.
-- **Mobile D-pad:** press or hold to move.
-- **Motion toggle:** disable ambient animation and make travel instant. Honors system reduced motion.
-- **Escape / close:** return to the village.
+## Explore
 
-## Included demonstration
+- **WASD / arrows:** move. **Click/tap ground or a building:** walk there.
+- **E / Explore:** open the nearby work story.
+- **Project index:** open any case directly. Mobile includes a D-pad.
+- **About & experience:** read the complete 2018–present chronology and project contributions below the map.
+- **Motion:** disables ambient animation and uses instant world travel. Also honors reduced motion.
+- **Escape / close:** leave a project dialog.
 
-Seven locations: Arcade (playable Rock Paper Scissors), Signal Station (local scripted chat), Card Vault (integration showcase), Coffee House (invoice concept), Operations Hub (ERP concept), Oren Market (product screenshot and link), Jajaneun Kitchen (curated Instagram images and links).
+Each case identifies the company/product, role, period, context, concrete contributions, technologies, and an illustrative workflow. Financial/ERP/invoice concepts are labeled sample data. Oren POS and Jajaneun use attributed existing imagery. LinkedIn is the main contact; the revised CV is included.
 
-The revised CV and LinkedIn contact link are included. Invoice, finance, and ERP visuals are labeled illustrative. No messaging backend, live financial integration, wagering, payment, or account system is connected.
+## Football Penalty
 
-## Files and architecture
+Exactly **four fixed zones**, arranged in a 2×2 goal: top left, top right, bottom left, bottom right. Clicking a zone immediately shoots. The keeper chooses a zone; a different zone scores, a matching zone is saved and ends the round. Five consecutive goals wins. No zone settings, wagering, backend, or transactions. Inputs lock during the shot. Restart is always available; the best score survives reopening the game during the page visit.
 
-- `src/world.js` — original procedural Canvas 2D artwork and character controller.
-- `src/world-math.js` — isometric projection and obstacle-aware routing.
-- `src/data.js` — English project content.
-- `src/app.js` — semantic DOM interface, native accessible dialogs, local demos.
-- `src/styles.css` — responsive dark autumn UI.
-- `public/assets/` — copied assets, revised CV, locally hosted fonts/licenses.
-- [Design and implementation plan](docs/PLAN.md)
-- [Content and provenance](docs/CONTENT.md)
-- [Verification notes](docs/VERIFICATION.md)
+The game uses React and the local shadcn Button component. The world and content shell remain independently maintainable. Timers and the React root are cleaned up when dialogs close or change.
 
-## Checks and static build
+## Verify and package
 
 ```sh
 npm run check
 npm test
 npm run build
-node scripts/serve.mjs --dist
+npm run preview
 ```
 
-Stop the dev server before serving `dist` on the same port. `PORT=4177 node scripts/serve.mjs --dist` uses another port. Build copies browser files into `dist/`; hosting needs no backend. Production accessibility, content SEO, and device performance work are listed in the plan. React/shadcn integration is reserved for the production phase, after this exploration direction is chosen.
+Stop dev before previewing on the same port. Deployable files are in `dist/`; a server only needs static-file hosting. No runtime Node server or database is required. The full profile, timeline, and expandable project stories are emitted as HTML by the Vite build, so reading mode works without JavaScript.
 
-World art is generated from original vector geometry; the reference video is inspiration only and is not bundled. No external scripts or requests are made on page load. External destinations open only when their links are selected.
+## Source map
+
+- `src/world.js`, `src/world-math.js`: original procedural world and navigation.
+- `src/data.js`: shared career and project content.
+- `src/content-html.js`: static profile, chronology, and case reading mode.
+- `src/app.js`: map UI, dialogs, local chat, and lifecycle management.
+- `src/penalty.js`: pure game transitions, fixed zones, and terminal-round rules.
+- `src/components/PenaltyGame.jsx`: football presentation and controls.
+- `src/components/ui/button.jsx`: shadcn/ui source component.
+- `src/styles.css`, `src/experience.css`, `src/penalty.css`, `src/ui.css`: presentation and Tailwind theme.
+- `public/assets/`: revised CV, attributed project images, partner marks, fonts/licenses.
+
+[Plan](docs/PLAN.md) · [Implementation record](docs/IMPLEMENTATION.md) · [Content provenance](docs/CONTENT.md) · [Verification](docs/VERIFICATION.md) · [Static hosting](docs/DEPLOYMENT.md)
+
+The reference game was used to understand click-to-shoot and keeper/streak behavior. All football artwork is newly drawn SVG/CSS. No remote scripts run on page load; external links open only when selected. No GitHub repository or deployment has been created.

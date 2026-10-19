@@ -1,5 +1,30 @@
 {
-  "name":"patra-world", "version":"0.1.0", "private":true, "type":"module",
-  "description":"An explorable, local-only portfolio concept for Anugrah Patra",
-  "scripts":{"dev":"node scripts/serve.mjs", "build":"node scripts/build.mjs", "check":"node --check src/app.js && node --check src/world.js", "test":"node --test tests/*.test.js"}
+  "name": "patra-world",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "An explorable, local-only portfolio concept for Anugrah Patra",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "check": "node --check src/app.js && node --check src/world.js && node --check src/penalty.js",
+    "test": "node --test tests/*.test.js",
+    "preview": "vite preview --host 127.0.0.1 --port 4176 --strictPort"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.59.0",
+    "radix-ui": "^1.8.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tailwind-merge": "^3.7.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@vitejs/plugin-react": "^6.1.2",
+    "esbuild": "^0.28.2",
+    "tailwindcss": "^4.3.3",
+    "vite": "^8.3.4"
+  }
 }
