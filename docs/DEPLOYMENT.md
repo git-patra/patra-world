@@ -1,12 +1,25 @@
-# Static deployment preparation
+# Production deployment
 
-Status: local only. No SSH connection or server changes have been made.
+- Domain: https://patraworld.site (www redirects to apex).
+- SSH: `ssh idhost-vps`, user bonbon, IP 203.145.35.187.
+- Static Vite output served directly by existing Caddy. No portfolio application container, Node runtime, database, or GitHub Actions credentials.
+- App directory: `/opt/apps/patra-world`. Caddy mount: `/opt/apps/patra-world:/srv/patra-world:ro`.
+- Shared infrastructure: `/opt/apps/_infra/caddy/docker-compose.yml` and `Caddyfile`.
 
-1. Run `npm ci`, `npm run check`, `npm test`, and `npm run build`.
-2. Preview `dist/` locally with `npm run preview`; verify CV, images, four-zone penalty, timeline, and direct project reading mode.
-3. When deployment is requested, obtain the destination SSH alias/host, user, domain, and web directory.
-4. Publish only the contents of `dist/`. Do not expose source, `.git`, `node_modules`, or documents.
-5. The Vite base is relative (`./`), supporting root or directory hosting with a trailing slash. Configure directory requests to serve `index.html`. No API proxy or SPA route rewrite is needed; navigation uses fragment links.
-6. Use a temporary release directory and retain the previous release for rollback; switch the web root only after checking the uploaded assets.
+## Update
 
-No backend, credentials, database, Instagram token, or financial service connection is required. Add the actual production canonical URL and social preview URL only when a domain has been selected. Avoid inventing a public deployment URL.
+Commit changes, then run `./scripts/deploy.sh` from a machine with the existing SSH alias. It checks/tests/builds locally, uploads a checksummed archive, and switches the `current` symlink atomically. Only build output is uploaded. No Caddy restart is needed for subsequent releases.
+
+Layout: `releases/<timestamp>-<commit>/`, `current`, `previous-release`, `deployed-release`, `uploads/`, `backups/`. Old releases are retained for rollback; cleanup is manual.
+
+After uploading, verify the HTTPS page, its JS/CSS, images, CV, and www redirect. Review deployment logs before declaring a release healthy.
+
+## Rollback content
+
+Read `/opt/apps/patra-world/previous-release`, verify the referenced release exists, create a temporary symlink to it, and atomically rename that symlink over `current`. This requires no service restart. Do not delete the current or previous release before verifying the replacement.
+
+## One-time Caddy setup
+
+Backup host Compose/Caddyfile, mounted Caddyfile, live JSON configuration and container IDs. Validate a candidate configuration with the extra read-only mount and the two blocks in `deploy/Caddyfile`. Recreate only the caddy service with `--no-deps --pull never`; retain existing image, networks, ports and named volumes. Never run shared `compose down`.
+
+Preserve all existing routes, including any difference between active and on-disk configuration. Validate existing site responses before and after. Setup backups are under `backups/`; `setup-backup` records the backup directory. If setup fails, restore the backed-up Compose and known working Caddy configuration, then recreate only caddy.

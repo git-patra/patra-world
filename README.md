@@ -2,7 +2,7 @@
 
 Anugrah Patra’s static portfolio: an explorable isometric world, a visible professional timeline, seven detailed work stories, and a playable Football Penalty game. Dark autumn/Halloween theme. English content.
 
-Local only. The original `../patra-portfolio` repository remains the earlier option and is not modified by this project.
+Production deployment uses the existing VPS Caddy to serve static releases; see docs/DEPLOYMENT.md. The original `../patra-portfolio` repository remains the earlier option and is not modified by this project.
 
 ## Local development
 
@@ -56,4 +56,4 @@ Stop dev before previewing on the same port. Deployable files are in `dist/`; a 
 
 [Plan](docs/PLAN.md) · [Implementation record](docs/IMPLEMENTATION.md) · [Content provenance](docs/CONTENT.md) · [Verification](docs/VERIFICATION.md) · [Static hosting](docs/DEPLOYMENT.md)
 
-The reference game was used to understand click-to-shoot and keeper/streak behavior. All football artwork is newly drawn SVG/CSS. No remote scripts run on page load; external links open only when selected. No GitHub repository or deployment has been created.
+The reference game was used to understand click-to-shoot and keeper/streak behavior. All football artwork is newly drawn SVG/CSS. No remote scripts run on page load; external links open only when selected. Source repository: https://github.com/git-patra/patra-world. Deployment is performed via the versioned SSH upload script, not GitHub Actions.

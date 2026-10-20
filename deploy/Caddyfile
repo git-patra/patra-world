@@ -1,0 +1,10 @@
+# Append these blocks to the shared Caddyfile; preserve existing site blocks.
+patraworld.site {
+    root * /srv/patra-world/current
+    encode zstd gzip
+    file_server
+}
+
+www.patraworld.site {
+    redir https://patraworld.site{uri} permanent
+}
