@@ -10,9 +10,9 @@ npm run check
 npm test
 npm run build
 release="$(date -u +%Y%m%dT%H%M%SZ)-$(git rev-parse --short HEAD)"
-archive="$(mktemp -t patra-world).tar.gz"
+archive="$(mktemp -t patra-world)"
 trap 'rm -f "$archive"' EXIT
-tar -czf "$archive" -C dist .
+COPYFILE_DISABLE=1 tar -czf "$archive" -C dist .
 checksum="$(shasum -a 256 "$archive" | awk '{print $1}')"
 ssh idhost-vps 'mkdir -p /opt/apps/patra-world/releases /opt/apps/patra-world/uploads'
 scp "$archive" "idhost-vps:/opt/apps/patra-world/uploads/$release.tar.gz"
