@@ -44,7 +44,7 @@ Stop dev before previewing on the same port. Deployable files are in `dist/`; a 
 
 ## CV
 
-The downloadable CV is a concise one-page resume focused on chat applications, Ethereum/Alchemy, mini-games, and design systems. To regenerate it, install ReportLab in your Python environment and run `python3 scripts/generate_resume.py`. Review `output/pdf/Anugrah-Patra-Resume-2026.pdf`, then copy it to `public/assets/Anugrah-Patra-Resume.pdf` before building.
+The downloadable CV is a two-page resume with detailed contributions and technology context, focused on chat applications, Ethereum/Alchemy, mini-games, and design systems. It also retains the broader technical skills from the original CV. To regenerate it, install ReportLab in your Python environment and run `python3 scripts/generate_resume.py`. Review `output/pdf/Anugrah-Patra-Resume-2026.pdf`, then copy it to `public/assets/Anugrah-Patra-Resume.pdf` before building.
 
 ## Source map
 
