@@ -130,12 +130,12 @@ job("IT Support", "PT Kurnia Parama Adhara", "Jul 2018 - Feb 2020", [
 ])
 
 section("PERSONAL PROJECTS")
-job("Founder &amp; Full Stack Engineer", "Oren POS / Jajaneun Chili Oil", "Active project", [
+job("Founder &amp; Full Stack Engineer", "Oren POS / Jajaneun Chili Oil", 'Active project | Portfolio: <link href="https://orenpos.store/" color="#24577D">orenpos.store</link>', [
     "Built a POS platform covering sales, inventory, product and stock management, cashier operations, and reporting for day-to-day F&amp;B workflows.",
     "Delivered web and mobile experiences with React, Next.js, and Flutter, including operational dashboards and cross-platform cashier workflows.",
     "Maintain and deploy the platform while operating Jajaneun Chili Oil, using direct business feedback to prioritize improvements and validate features.",
 ], "React, Next.js, Flutter")
-job("Developer", "Patra World", "Personal portfolio", [
+job("Developer", "Patra World", 'Personal portfolio | <link href="https://patraworld.site/" color="#24577D">patraworld.site</link>', [
     "Built an explorable portfolio with a walkable Canvas 2D world, project showcases, and a playable football mini-game using React, Tailwind CSS, and shadcn/ui.",
     "Implemented game interaction states and responsive controls; packaged the site for static hosting and deployed it through versioned SSH releases.",
 ])
