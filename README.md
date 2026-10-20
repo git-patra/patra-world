@@ -42,6 +42,10 @@ npm run preview
 
 Stop dev before previewing on the same port. Deployable files are in `dist/`; a server only needs static-file hosting. No runtime Node server or database is required. The full profile, timeline, and expandable project stories are emitted as HTML by the Vite build, so reading mode works without JavaScript.
 
+## CV
+
+The downloadable CV is a concise one-page resume focused on chat applications, Ethereum/Alchemy, mini-games, and design systems. To regenerate it, install ReportLab in your Python environment and run `python3 scripts/generate_resume.py`. Review `output/pdf/Anugrah-Patra-Resume-2026.pdf`, then copy it to `public/assets/Anugrah-Patra-Resume.pdf` before building.
+
 ## Source map
 
 - `src/world.js`, `src/world-math.js`: original procedural world and navigation.

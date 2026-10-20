@@ -12,7 +12,7 @@ I’m Anugrah Patra, a software engineer based in Bandung, Indonesia. I build re
 - Backend, frontend, and distributed systems; end-to-end delivery.
 - Core tools: Go, Java, Node.js, TypeScript, React, and PostgreSQL.
 - Primary contact: [Let’s talk on LinkedIn](https://www.linkedin.com/in/anugrah-patra-7156a61a8/).
-- CV: `assets/Anugrah-Patra-Resume.pdf`, copied from the revised portfolio asset.
+- CV: `assets/Anugrah-Patra-Resume.pdf`, generated from this repository's `scripts/generate_resume.py`.
 
 ## 1. The Arcade
 
@@ -116,7 +116,7 @@ These are selected snapshots, not an automatically updating feed. Instagram embe
 
 Content was read from the existing portfolio’s `src/App.jsx`, `scripts/generate_resume.py`, `README.md`, and `docs/asset-sources.md`. The new project must copy required assets without editing that repository. BRI integration and Kopi Kenangan customization were also explicitly supplied by the user.
 
-Authoritative revised CV source: `../patra-portfolio/public/assets/Anugrah-Patra-Resume.pdf`. It replaces the original gaming-focused CV for this site. The portfolio URL recorded inside that CV is `http://172.93.188.10/`; do not restore the previous address beginning with `8.`.
+The CV was revised on 20 October 2026 using the user-supplied original resume and explicit follow-up details. Its source is now `scripts/generate_resume.py`, with the reviewed PDF published at `public/assets/Anugrah-Patra-Resume.pdf`. The one-page version highlights chat applications, Ethereum integration through Alchemy, end-to-end browser mini-games, and a shared design system. It omits Texas Poker, Solana, and employer project links. Its only hyperlinks are `https://patraworld.site/` and `https://orenpos.store/`. The original source PDF and earlier portfolio repository are preserved.
 
 Existing reusable assets include partner logos, Oren POS screenshots, and three curated Jajaneun thumbnails. Preserve source notes and font licenses when copying. No private project metrics, client screenshots, results, awards, or additional employers should be invented.
 
